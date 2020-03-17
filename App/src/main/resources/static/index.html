@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.min.css" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.0.0-alpha.17/dist/vuetify.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <v-app id="inspire">
+    <v-card>
+      <v-card-title>
+        BOOK LIST
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.title"
+          append-icon="search"
+          label="Search by Title"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.author"
+          append-icon="search"
+          label="Search by Author"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.subject"
+          append-icon="search"
+          label="Search by Subject"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="books"
+        :must-sort="true"
+        :items-per-page="5"
+        :footer-props="{itemsPerPageOptions:[5,10,15]}"
+      >       
+      </v-data-table>
+    </v-card>
+  </v-app>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.0.0-alpha.17/dist/vuetify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+ <script src="app.js"></script>
+
+</body>
+</html>

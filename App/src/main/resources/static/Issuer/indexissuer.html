@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+</head>
+<body>
+<div id="app">
+  <v-app id="inspire">
+    <v-card>
+      <v-card-title>
+        ISSUER LIST
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.cardno"
+          append-icon="search"
+          label="Search by Card Number"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.name"
+          append-icon="search"
+          label="Search by Name"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.sem"
+          append-icon="search"
+          label="Search by Semester"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.dept"
+          append-icon="search"
+          label="Search by Department"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchList.mail"
+          append-icon="search"
+          label="Search by Mail"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="issuer"
+        :must-sort="true"
+        :footer-props="{itemsPerPageOptions:[5,10,15]}"
+      >
+      <template v-slot:top>
+        <v-toolbar flat color="white">
+          <v-toolbar-title>ISSUER</v-toolbar-title>
+          <v-divider
+            class="mx-3"
+            inset
+            vertical
+          ></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="500px">
+            <template v-slot:activator="{ on }">
+              <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+  
+              <v-card-text>
+                <v-container grid-list-md>
+                  <v-layout wrap>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.cardno" label="Card No."></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.type" label="Type"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.sem" label="Semester"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.dept" label="Department"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.mail" label="Mail"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4>
+                      <v-text-field v-model="editedItem.phone" label="Phone"></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-text>
+  
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.action="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          edit
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          delete
+        </v-icon>
+      </template>
+    </v-data-table>
+    <v-snackbar
+      v-model="errorSnackbar"
+      :timeout="errorTimeout"
+    >
+      {{ errorText }}
+      <v-btn
+        color="error"
+        text
+        @click="errorSnackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
+  </v-app>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+ <script src="crudissuer.js"></script>
+
+</body>
+</html>
